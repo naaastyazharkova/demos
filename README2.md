@@ -26,3 +26,6 @@ ntp enable
 ntp server 10.10.1.100
   prefer
 exit
+
+# SMB/NFS
+
