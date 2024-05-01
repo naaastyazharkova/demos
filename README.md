@@ -1,13 +1,13 @@
-#### УДАЛЕНИЕ CURL
+# УДАЛЕНИЕ CURL
 sudo apt remove --purge *curl*
 
-#### РАСЧЁТ МАСКИ
+# РАСЧЁТ МАСКИ
 
 n = 32 - log2(H), где H - кол-во адресов.
 
 адрес .0 - адрес сети, последний адрес - бродкаст(если маска 28, то последний адрес .15), .1 - шлюз, gateway.
 
-#### ПОРТЫ
+# ПОРТЫ
 
 HQ:
 порт1 - интернет
@@ -20,7 +20,7 @@ ISP:
 порт2 - BR
 порт3 - HQ
 
-#### В НАЧАЛЕ
+# В НАЧАЛЕ
 
 sudo apt install putty
 sudo apt remove brltty 
@@ -29,7 +29,7 @@ sudo apt remove brltty
 
 sudo putty
  
-#### ELTEX
+# ELTEX
 
 сбрасываем конфиг, зажимаем F 
 
@@ -81,7 +81,7 @@ end
 commit 
 confirm
 
-#### MIKROTIK (HQ)
+# MIKROTIK (HQ)
 
 ПОСЛЕ ПЕРВОГО ПОДКЛЮЧЕНИЕ ОБЯЗАТЕЛЬНО СБРОС КОНФИГА
 system reset-configuration
@@ -110,7 +110,7 @@ system reset-configuration
 # Проверка, что OSPF работает:
 /routing ospf neighbor print
 
-# Настройка DHCP (командой bridge port add мы объединяем 2 физических интерфейса в 1 логический, то есть порты 9 и 10 будут использоваться для подключения компов и выдаче адресов по DHCP):
+## Настройка DHCP (командой bridge port add мы объединяем 2 физических интерфейса в 1 логический, то есть порты 9 и 10 будут использоваться для подключения компов и выдаче адресов по DHCP):
 /interface bridge add name=dhcp_hq 
 /interface bridge port add bridge=dhcp_hq interface=ether9
 /interface bridge port add bridge=dhcp_hq interface=ether10
@@ -130,7 +130,7 @@ system reset-configuration
 
 На HQ-SRV настраиваем статический IPv4 адрес: заходим в настройки сети; в терминале ifconfig, оттуда смотрим inet (адрес), netmask (маска сети), шлюз (gateway) - 10.10.4.1 
 
-#### MIKROTIK (BR)
+# MIKROTIK (BR)
 
 ПОСЛЕ ПЕРВОГО ПОДКЛЮЧЕНИЕ ОБЯЗАТЕЛЬНО СБРОС КОНФИГА
 system reset-configuration
@@ -141,10 +141,10 @@ system reset-configuration
 
 /system identity set name=BR
 
-# Конфигурация портов:
+## Конфигурация портов:
 /ip address add address=10.10.2.2/24 interface=ether5
 
-# Настройка  OSPF:
+## Настройка  OSPF:
 /routing ospf instance set default redistribute-static=as-type-1  redistribute-connected=as-type-1 redistribute-rip=as-type-1 router-id=0.0.0.0
 /routing ospf area add name=backbone0 area-id=10.10.0.0
 /routing ospf network add area=backbone0 network=10.10.0.0/16
@@ -152,7 +152,7 @@ system reset-configuration
 # Проверка, что OSPF работает:
 /routing ospf neighbor print
 
-# Настройка DHCP (командой bridge port add мы объединяем в 1 логический интерфейс 2 физических, 
+## Настройка DHCP (командой bridge port add мы объединяем в 1 логический интерфейс 2 физических, 
 то есть порты 9 и 10 будут использоваться для подключения компов и выдаче адресов по DHCP)
 /interface bridge add name=dhcp_BR 
 /interface bridge port add bridge=dhcp_BR interface=ether9
