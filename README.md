@@ -76,7 +76,7 @@ ip ospf
 ip firewall disable
 exit
 
-После всех настроек:
+## После всех настроек:
 end 
 commit 
 confirm
@@ -130,6 +130,14 @@ system reset-configuration
 
 На HQ-SRV настраиваем статический IPv4 адрес: заходим в настройки сети; в терминале ifconfig, оттуда смотрим inet (адрес), netmask (маска сети), шлюз (gateway) - 10.10.4.1 
 
+## УСТАНОВКА УЧЁТОК
+user add name=Admin password=123HQadmin group=full disabled=no
+user add name=Network-admin password=123NETadmin group=full disabled=no
+# проверка
+- user print
+- переключаемся на BR пишем: system ssh user=Admin 10.10.1.2, вводим пароль, который задавали на HQ для Admin
+                             system ssh user=Network-admin 10.10.1.2, вводим пароль, который задавали на HQ для Network-admin
+
 # MIKROTIK (BR)
 
 ПОСЛЕ ПЕРВОГО ПОДКЛЮЧЕНИЕ ОБЯЗАТЕЛЬНО СБРОС КОНФИГА
@@ -174,4 +182,30 @@ system reset-configuration
 # проверка OSPF 
 ping 10.10.4.1
 (к HQ)
+
+## УСТАНОВКА УЧЁТОК
+user add name=Branch-admin password=123BRadmin group=full disabled=no
+user add name=Network-admin password=123Netadmin group=full disabled=no
+# проверка
+- user print
+- переключаемся на BR пишем: system ssh user=Admin 10.10.2.2, вводим пароль, который задавали на HQ для Admin
+                             system ssh user=Network-admin 10.10.2.2, вводим пароль, который задавали на HQ для Network-admin
+
+# УЧЁТКИ НА СЕРВЕРАХ И CLI (терминал убунты)
+## HQ-SRV
+sudo useradd Admin -m -c "Admin on HQ-SRV" -U
+sudo passwd Admin (после passwd имя пользователя)
+
+## BR-SRV
+sudo useradd Branch-admin -m -c "BR admin on BR-SRV" -U
+sudo passwd Branch-admin 
+
+sudo useradd Network-admin -m -c "Net admin on BR-SRV" -U
+sudo passwd Network-admin
+
+## CLI
+sudo useradd Admin -m -c "user Admin" -U
+sudo passwd Admin
+
+
 
