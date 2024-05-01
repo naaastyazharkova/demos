@@ -157,7 +157,7 @@ system reset-configuration
 # Настройка статик ip на HQ-SRV
 На HQ-SRV настраиваем статический IPv4 адрес: заходим в настройки сети; в терминале ifconfig, оттуда смотрим inet (адрес), netmask (маска сети), шлюз (gateway) - 10.10.4.1 
 
-## УСТАНОВКА УЧЁТОК
+## НАСТРОЙКА УЧЁТОК
 ```
 user add name=Admin password=123HQadmin group=full disabled=no
 user add name=Network-admin password=123NETadmin group=full disabled=no
