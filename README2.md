@@ -1,3 +1,5 @@
+# NTP
+
 ### На Mikrotik HQ 
 
 /interface bridge add name=local
