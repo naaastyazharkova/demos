@@ -1,3 +1,6 @@
+#### УДАЛЕНИЕ CURL
+sudo apt remove --purge *curl*
+
 #### РАСЧЁТ МАСКИ
 
 n = 32 - log2(H), где H - кол-во адресов.
