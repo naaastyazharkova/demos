@@ -120,3 +120,10 @@ ssh username@HQ-address -p 2222
 - e, f: 
 /ip firewall filter add chain=forward action=drop comment="Drop all other traffic"
 
+# ОТ ИГОРЯ
+
+#### Например нужно для адреса 10.10.3.30 заблокировать пинг по 8.8.8.8
+/ip firewall filter add action=drop chain=forward dst-address=8.8.8.8 log=yes protocol=icmp src-address=10.10.3.30
+#### разрешаем обращаться к нам по 21 порту оттовсюду
+/ip firewall filter add action=accept chain=input dst-port=21 protocol=tcp
+
