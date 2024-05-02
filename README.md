@@ -260,4 +260,23 @@ sudo useradd Admin -m -c "user Admin" -U
 sudo passwd Admin
 ```
 
+# ИНТЕРНЕТ(WIFI) И DOCKER
+отредактировать /etc/docker/daemon.json
+
+записать туда
+{
+  "live-restore": true,
+  "bip": "172.20.0.1/16",
+  "default-address-pools": [{
+    "base": "172.20.0.0/8",
+    "size": 16
+  }]
+}
+
+важная строка "bip": "172.20.0.1/16" - это смена подсети докера, чтобы она не конфликтовала с адресом сервера авторизации wi-fi
+
+после сохранения файла перезапустить службу докера: service docker restart
+и проверить настройки docker network inspect bridge
+
+Там должен появиться диапазон 172.20.0.0/16
 
