@@ -38,6 +38,9 @@ sudo putty
 ```
 # ELTEX
 
+##ПРОСМОТР КОНФИГА 
+sh run
+
 сбрасываем конфиг, зажимаем F 
 ```
 дефолт логин, пароль 
@@ -97,6 +100,11 @@ confirm
 ```
 
 # MIKROTIK (HQ)
+
+## ПРОВЕРКА КОНФИГА
+
+export compact - вывод конфига красиво 
+export terse - вывод полных команд
 
 ПОСЛЕ ПЕРВОГО ПОДКЛЮЧЕНИЕ ОБЯЗАТЕЛЬНО СБРОС КОНФИГА
 ```
@@ -259,6 +267,11 @@ sudo passwd Network-admin
 sudo useradd Admin -m -c "user Admin" -U
 sudo passwd Admin
 ```
+
+# ПРОВЕРКА СТАТУСА RSYSLOG
+
+systemctl status rsyslog (дальше табайте)
+
 
 # ИНТЕРНЕТ(WIFI) И DOCKER
 отредактировать /etc/docker/daemon.json
