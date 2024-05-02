@@ -55,6 +55,87 @@ ntp server 10.10.1.100
   prefer
 exit
 
+# Samba
+
+sudo apt install samba
+systemctl enable smbd
+
+## НА СЕРВЕРЕ
+
+sudo mkdir -m 777 /Branch_Files /Network /Admin_Files
+
+chmod 777 <папки>
+
+sudo nano /etc/samba/smb.conf
+
+Созданных пользователей добавляем в группу:
+- usermod -aG smbgrp user1
+
+Изменим группу, которой принадлежит приватная директория:
+- chgrp smbgrp /media/samba/private
+
+С помощью инструментов Samba создадим пароль для добавленного пользователя:
+smbpasswd -a user1
+
+[Admin_Files]
+comment = admin file forlder
+   path = /Admin_Files
+   browseable = no
+   public = no
+   writable = no
+   read only = yes
+   guest ok = yes
+   valid users = Admin
+   write list = Admin
+   create mask = 0777
+   directory mask = 0777
+   force create mode = 0777
+   force directory mode = 0777
+   inherit owner = yes
+
+[Branch_Files]
+comment = branch file forlder
+   path = /Branch_Files        
+   browseable = no
+   public = no
+   writable = no
+   read only = yes
+   guest ok = yes
+   valid users = Branch-admin 
+   write list = Branch-admin
+   create mask = 0777
+   directory mask = 0777
+   force create mode = 0777
+   force directory mode = 0777
+   inherit owner = yes
+
+[Network]
+comment = network file forlder
+   path = /Network
+   browseable = no
+   public = no
+   writable = no
+   read only = yes
+   guest ok = yes
+   valid users = Network-admin
+   write list = Network-admin
+   create mask = 0777
+   directory mask = 0777
+   force create mode = 0777
+   force directory mode = 0777
+   inherit owner = yes
+
+systemctl restart smbd
+
+## на клиенте
+
+sudo mkdir /mnt/<папки>
+
+//HQ-SRV/Network /mnt/Network cifs credentials=/etc/samba/creds,vers=3.0,iocharset=utf8,file_mode=0777,dir_mode=0777 0 0
+
+
+
+
 # SSH для удалённого конфигурирования устройства HQ-SRV по порту 2222
 
 ## на HQ-SRV
