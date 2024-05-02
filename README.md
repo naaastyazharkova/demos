@@ -4,6 +4,10 @@ sudo apt remove --purge *curl*
 # Удаление истории
 history -c *диапазон*
 
+# РЕПА РОБЕРТА
+
+git clone https://github.com/bob4inski/demo.git
+
 # РАСЧЁТ МАСКИ
 
 n = 32 - log2(H), где H - кол-во адресов.
